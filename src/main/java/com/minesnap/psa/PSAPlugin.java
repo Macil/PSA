@@ -78,7 +78,7 @@ public class PSAPlugin extends JavaPlugin implements Listener {
         ConfigurationSection messagesSection = getConfig().getConfigurationSection("messages");
         for(String name : messagesSection.getKeys(false)) {
             String content = messagesSection.getString(name+".message");
-            int chance = messagesSection.getInt(name+".chance", 100);
+            double chance = messagesSection.getDouble(name+".chance", 100);
             boolean spout = messagesSection.getBoolean(name+".spout", false);
             Message message = new Message(name, content, chance, spout);
 
@@ -140,13 +140,13 @@ public class PSAPlugin extends JavaPlugin implements Listener {
 
     public void announce(String message) {
         for(String line : message.split("\n")) {
-            getServer().broadcastMessage(ChatColor.DARK_PURPLE + line);
+            getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + line);
         }
     }
 
     public void announce(CommandSender receiver, String message) {
         for(String line : message.split("\n")) {
-            receiver.sendMessage(ChatColor.DARK_PURPLE + line);
+            receiver.sendMessage(ChatColor.LIGHT_PURPLE + line);
         }
     }
 }
