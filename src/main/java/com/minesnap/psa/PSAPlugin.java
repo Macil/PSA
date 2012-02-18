@@ -104,13 +104,13 @@ public class PSAPlugin extends JavaPlugin {
 
     public void announce(String message) {
         for(String line : message.split("\n")) {
-            getServer().broadcastMessage(ChatColor.DARK_AQUA + line);
+            getServer().broadcastMessage(ChatColor.DARK_PURPLE + line);
         }
     }
 
     public void announce(CommandSender receiver, String message) {
         for(String line : message.split("\n")) {
-            receiver.sendMessage(ChatColor.DARK_AQUA + line);
+            receiver.sendMessage(ChatColor.DARK_PURPLE + line);
         }
     }
 }
