@@ -8,13 +8,19 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class PSAPlugin extends JavaPlugin {
-    private Random random = new Random();
+import org.getspout.spoutapi.player.SpoutPlayer;
 
+public class PSAPlugin extends JavaPlugin implements Listener {
     private Map<String, Message> messages;
     private RandomCollection<Message> randomMessages;
+    private Random random = new Random();
+    private boolean isSpoutLoaded = false;
 
     // Note that both of these values here are in game tics. In the
     // config file, they're in minutes.
@@ -31,7 +37,26 @@ public class PSAPlugin extends JavaPlugin {
         getCommand("psatest").setExecutor(new PSATestCommand(this));
         getCommand("psareload").setExecutor(new PSAReloadCommand(this));
 
+        // What if we just loaded before Spout did?
+        if(!checkSpoutLoaded()) {
+            getServer().getPluginManager().registerEvents(this, this);
+        }
+
         init();
+    }
+
+    public boolean checkSpoutLoaded() {
+        if(!isSpoutLoaded) {
+            isSpoutLoaded = getServer().getPluginManager().getPlugin("Spout") != null;
+        }
+        return isSpoutLoaded;
+    }
+
+    @EventHandler
+    public void onPluginEnable(PluginEnableEvent event) {
+        if(event.getPlugin().getDescription().getName().equals("Spout")) {
+            isSpoutLoaded = true;
+        }
     }
 
     private void unload() {
@@ -54,7 +79,8 @@ public class PSAPlugin extends JavaPlugin {
         for(String name : messagesSection.getKeys(false)) {
             String content = messagesSection.getString(name+".message");
             int chance = messagesSection.getInt(name+".chance", 100);
-            Message message = new Message(name, content, chance);
+            boolean spout = messagesSection.getBoolean(name+".spout", false);
+            Message message = new Message(name, content, chance, spout);
 
             messages.put(name, message);
             randomMessages.add(chance, message);
@@ -95,11 +121,21 @@ public class PSAPlugin extends JavaPlugin {
     }
 
     public void announce(Message message) {
-        announce(message.getContent());
+        for(Player player : getServer().getOnlinePlayers()) {
+            announce(player, message);
+        }
+        announce(getServer().getConsoleSender(), message);
     }
 
     public void announce(CommandSender receiver, Message message) {
         announce(receiver, message.getContent());
+
+        if(isSpoutLoaded && message.getSpout() && receiver instanceof Player) {
+            SpoutPlayer splayer = (SpoutPlayer)receiver;
+            if(!splayer.isSpoutCraftEnabled()) {
+                splayer.sendMessage(ChatColor.DARK_AQUA+"Get the Spoutcraft client mod from "+ChatColor.GOLD+"http://spout.org/");
+            }
+        }
     }
 
     public void announce(String message) {

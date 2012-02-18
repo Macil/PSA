@@ -10,3 +10,6 @@ messages:
   rare:
     message: "This is a rare message!"
     chance: 5
+  spout:
+    message: "Do you have Spoutcraft?"
+    spout: true
