@@ -1,5 +1,6 @@
 package com.minesnap.psa;
 
+import java.io.File;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Random;
@@ -41,7 +42,11 @@ public class PSAPlugin extends JavaPlugin {
         messages = new HashMap<String, Message>();
         randomMessages = new RandomCollection<Message>(random);
 
-        saveDefaultConfig();
+        // Place the default config file if one doesn't exist.
+        if(!(new File(getDataFolder(), "config.yml")).exists()) {
+            saveDefaultConfig();
+        }
+
         time = getConfig().getInt("time", 12) * TICS_PER_MINUTE;
         variance = getConfig().getInt("variance", 3) * TICS_PER_MINUTE;
 
