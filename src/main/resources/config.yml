@@ -1,0 +1,12 @@
+time: 12
+variance: 4
+messages:
+  help:
+    message: "Use /help at any time to get a list of commands usable on the server!"
+  rules:
+    message: |-
+      Don't break or disturb other players' structures!
+      Use /rules to see all of the server's rules.
+  rare:
+    message: "This is a rare message!"
+    chance: 5

@@ -1,0 +1,41 @@
+name: PSA
+main: com.minesnap.psa.PSAPlugin
+version: "${project.version}"
+author: AgentME (agentme49@gmail.com)
+commands:
+  announce:
+    description: Make a custom announcement immediately.
+    usage: "Usage: /announce Message here"
+    permission: psa.announce
+  psanow:
+    description: Display a PSA message to everyone.
+    usage: "Usage: /psanow messagename"
+    permission: psa.now
+  psatest:
+    description: Display a PSA message locally.
+    usage: "Usage: /psatest messagename"
+    permission: psa.test
+  psareload:
+    description: Reload PSA's config file.
+    usage: "Usage: /psareload"
+    permission: psa.reload
+permissions:
+  psa.*:
+    description: Gives access to all PSA commands.
+    children:
+      psa.announce: true
+      psa.now: true
+      psa.test: true
+      psa.reload: true
+  psa.announce:
+    description: Allows you to use the /announce command.
+    default: op
+  psa.now:
+    description: Allows you to use the /psanow command.
+    default: op
+  psa.test:
+    description: Allows you to use the /psatest command.
+    default: op
+  psa.reload:
+    description: Allows you to use the /psareload command.
+    default: op
