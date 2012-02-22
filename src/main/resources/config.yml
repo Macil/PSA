@@ -1,5 +1,6 @@
 time: 12
 variance: 4
+color: LIGHT_PURPLE
 messages:
   help:
     message: "Use /help at any time to get a list of commands usable on the server!"

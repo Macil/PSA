@@ -26,6 +26,7 @@ public class PSAPlugin extends JavaPlugin implements Listener {
     // config file, they're in minutes.
     private int time;
     private int variance;
+    private ChatColor color;
 
     private static final int TICS_PER_SECOND = 20;
     private static final int TICS_PER_MINUTE = TICS_PER_SECOND*60;
@@ -74,6 +75,7 @@ public class PSAPlugin extends JavaPlugin implements Listener {
 
         time = getConfig().getInt("time", 12) * TICS_PER_MINUTE;
         variance = getConfig().getInt("variance", 3) * TICS_PER_MINUTE;
+        color = ChatColor.valueOf(getConfig().getString("color", "LIGHT_PURPLE"));
 
         ConfigurationSection messagesSection = getConfig().getConfigurationSection("messages");
         for(String name : messagesSection.getKeys(false)) {
@@ -140,13 +142,13 @@ public class PSAPlugin extends JavaPlugin implements Listener {
 
     public void announce(String message) {
         for(String line : message.split("\n")) {
-            getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + line);
+            getServer().broadcastMessage(color + line);
         }
     }
 
     public void announce(CommandSender receiver, String message) {
         for(String line : message.split("\n")) {
-            receiver.sendMessage(ChatColor.LIGHT_PURPLE + line);
+            receiver.sendMessage(color + line);
         }
     }
 }
