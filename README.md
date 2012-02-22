@@ -15,9 +15,8 @@ recommendation.
 Installing
 ----------
 
-Place the Restarter.jar file in the plugins/ directory. After the
-first run, a Restarter/config.yml file will be generated with default
-values.
+Place the PSA.jar file in the plugins/ directory. After the first run,
+a PSA/config.yml file will be generated with default values.
 
 Configuration
 -------------
@@ -27,11 +26,11 @@ messages.
 
 The variance value lets you set a maximum amount for the time between
 messages to vary. PSA will wait for an amount of time in the range
-[minutesToRestart-variance, minutesToRestart+variance] before
-displaying a new message. For example, if time is 12 and variance is
-4, then PSA will wait for a random amount of time between 8 and 16
-minutes before displaying a message. If you set variance to 0, then
-the messages will always be exactly _time_ minutes apart.
+[time-variance, time+variance] before displaying a new message. For
+example, if time is 12 and variance is 4, then PSA will wait for a
+random amount of time between 8 and 16 minutes before displaying a
+message. If you set variance to 0, then the messages will always be
+exactly _time_ minutes apart.
 
 The color value is the color for the messages to appear in. It can be
 any color on the list at
@@ -39,7 +38,8 @@ http://jd.bukkit.org/apidocs/org/bukkit/ChatColor.html
 
 The messages are all defined under the messages section. The first
 heading of the message is the message's name. (The message names in
-the default config.yml are "help", "rules", and "spout" for example.)
+the default config.yml are "help", "rules", "rare", and "spout" for
+example.)
 
 The message's content goes after the "message:" part. If the symbols
 "|-" immediately come after "message:", then the message will span the
