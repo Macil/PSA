@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.minesnap</groupId>
   <artifactId>psa</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <name>PSA</name>
   <description>Public Service Announcements plugin for
   Bukkit</description>
